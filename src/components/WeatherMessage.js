@@ -1,7 +1,22 @@
 import React, { Component } from 'react';
+import { connect} from 'react-redux';
 
-export default class WeatherMessage extends Component {
+class WeatherMessage extends Component {
     render() {
-        return <h3>Hanoi is now 30</h3>;
+        const { cityName, temp, isLoading, error } = this.props;
+        let message = 'Enter your city name';
+        if (cityName) message = `${cityName} is now ${temp}`;
+        if (error) message = 'Cannot find your city';
+        if (isLoading) message = 'Loading...';
+        return <h3>{message}</h3>;
     }
 }
+
+const mapStateToProps = (state) => ({
+    cityName: state.cityName,
+    temp: state.temp,
+    isLoading: state.isLoading,
+    error: state.error
+});
+
+export default connect(mapStateToProps)(WeatherMessage);
