@@ -14,3 +14,5 @@ class App extends Component {
 }
 
 export default App;
+
+//https://www.youtube.com/watch?v=nS6YCq2OdeA&t=1s REALM DB
