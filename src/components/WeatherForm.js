@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import getWeatherByCityName from '../api/getTempByCityName';
+import * as actionCreators from '../redux/action';
+
 import { connect } from 'react-redux';
 
 class WeatherForm extends Component {
     getWeather() {
         const { txtCityName } = this.refs;
         const cityName = txtCityName.value;
-        const { dispatch } = this.props;
-        dispatch({ type: 'BAT_DAU_TIM_KIEM' });
+        const { batDauTimKiem, timKiemThanhCong, timKiemThatBai } = this.props;
+        batDauTimKiem();
         getWeatherByCityName(cityName)
-        .then(temp => dispatch({ type: 'TIM_KIEM_THANH_CONG', cityName, temp}))
-        .catch(error => dispatch({ type: 'TIM_KIEM_THAT_BAI', error }));
+        .then(temp => timKiemThanhCong(cityName, temp))
+        .catch(error => timKiemThatBai(error));
     }
     render() {
         return (
@@ -23,4 +25,4 @@ class WeatherForm extends Component {
     }
 }
 
-export default connect()(WeatherForm);
+export default connect(null, actionCreators)(WeatherForm);
