@@ -1,4 +1,5 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 const defaultState = {
     cityName: null,
@@ -17,7 +18,7 @@ const reducer = (state = defaultState, action) => {
     return state;
 };
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunk));
 export default store;
 // WeatherMessage -> trang thai
 /*

@@ -5,21 +5,15 @@ import * as actionCreators from '../redux/action';
 import { connect } from 'react-redux';
 
 class WeatherForm extends Component {
-    getWeather() {
-        const { txtCityName } = this.refs;
-        const cityName = txtCityName.value;
-        const { batDauTimKiem, timKiemThanhCong, timKiemThatBai } = this.props;
-        batDauTimKiem();
-        getWeatherByCityName(cityName)
-        .then(temp => timKiemThanhCong(cityName, temp))
-        .catch(error => timKiemThatBai(error));
-    }
     render() {
+        const { getWeather } = this.props;
         return (
             <div>
                 <input type="text" placeholder="Enter your city name" ref="txtCityName"/>
                 <br /><br />
-                <button onClick={this.getWeather.bind(this)}>Get Weather</button>
+                <button onClick={() => getWeather(this.refs.txtCityName.value)}>
+                    Get Weather
+                </button>
             </div>
         );
     }
